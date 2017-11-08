@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--配置bean
+       class: bean的全类名称，通过反射在IOC容器创建Bean，所以要求bean中必须要有无参构造器
+          id: 标识容器中的bean，id唯一
+
+
+          spring 依赖注入方式
+          1.属性注入   通过setter方法注入  eg: <property name="name" value="spring 4.3"/>
+          2.构造器注入  
+          3.工厂方法注入
+    -->
+    <!--通过属性注入-->
+    <bean id="helloWorld" class="com.sunny.beans.HelloWorld">
+        <!--对应的是HelloWorld 类的set方法-->
+        <property name="name" value="spring 4.3"/>
+    </bean>
+
+    <!--
+    ## 通过构造器注入
+
+    * 重载构造器可以通过位置(index)、类型(type)、参数名称(name)区分
+    * 基本类型、封装类、string 都可以使用<value>标签获取value属性注入
+    * 特殊字符使用<![CDATA[]]> 进行注入
+    -->
+    <bean id="constructorArgDI" class="com.sunny.beans.di.ConstructorArgDI">
+        <constructor-arg  index="0">
+            <value><![CDATA[<Benchi^>]]></value>
+        </constructor-arg>
+        <constructor-arg index="1">
+            <value>shanghai</value>
+        </constructor-arg>
+        <constructor-arg index="2">
+            <value>3000</value>
+        </constructor-arg>
+    </bean>
+
+    <!--通过构造器注入2-->
+    <bean id="constructorArgDI2" class="com.sunny.beans.di.ConstructorArgDI">
+        <constructor-arg value="240" name="maxSpeed" type="int" index="2"></constructor-arg>
+        <constructor-arg value="baoma" index="0"></constructor-arg>
+        <constructor-arg value="shanghai" index="1"></constructor-arg>
+    </bean>
+</beans>
