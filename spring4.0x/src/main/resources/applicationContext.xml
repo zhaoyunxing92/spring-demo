@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!--配置bean
        class: bean的全类名称，通过反射在IOC容器创建Bean，所以要求bean中必须要有无参构造器
@@ -26,8 +27,8 @@
     * 基本类型、封装类、string 都可以使用<value>标签获取value属性注入
     * 特殊字符使用<![CDATA[]]> 进行注入
     -->
-    <bean id="constructorArgDI" class="com.sunny.beans.di.ConstructorArgDI">
-        <constructor-arg  index="0">
+    <bean id="car" class="com.sunny.beans.di.Car">
+        <constructor-arg index="0">
             <value><![CDATA[<Benchi^>]]></value>
         </constructor-arg>
         <constructor-arg index="1">
@@ -39,9 +40,135 @@
     </bean>
 
     <!--通过构造器注入2-->
-    <bean id="constructorArgDI2" class="com.sunny.beans.di.ConstructorArgDI">
+    <bean id="car2" class="com.sunny.beans.di.Car">
         <constructor-arg value="240" name="maxSpeed" type="int" index="2"></constructor-arg>
         <constructor-arg value="baoma" index="0"></constructor-arg>
         <constructor-arg value="shanghai" index="1"></constructor-arg>
     </bean>
+
+    <!--
+    ## bean的引用
+    * 使用 ref建立bean的引用关系
+       <property name="car">
+            <ref bean="car"/>
+        </property>
+    -->
+    <bean id="person" class="com.sunny.beans.reference.Person">
+        <property name="name" value="张三"></property>
+        <property name="age" value="25"></property>
+        <property name="car" ref="car"></property>
+
+    </bean>
+    <!--
+    ### 内部bean配置
+    * 不能被外部引用，只能在person内部使用
+    -->
+    <bean id="person2" class="com.sunny.beans.reference.Person">
+        <property name="name" value="李四"></property>
+        <property name="age" value="25"></property>
+        <property name="car">
+            <bean id="car3" class="com.sunny.beans.di.Car">
+                <constructor-arg value="250" name="maxSpeed" type="int" index="2"></constructor-arg>
+                <constructor-arg value="mazida" name="brand" index="0"></constructor-arg>
+                <constructor-arg value="shanghai" name="corp" index="1"></constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+    <!--
+    ### null值设置
+    * 使用<null/>标签
+    -->
+    <bean id="person3" class="com.sunny.beans.reference.Person">
+        <constructor-arg name="name" value="王五"/>
+        <constructor-arg name="age" value="25"/>
+        <constructor-arg name="car">
+            <null/>
+        </constructor-arg>
+    </bean>
+    <!--
+    ### 给级联属性赋值
+    * 属性(car)需要初始化后才可以级联赋值
+    -->
+    <bean id="person4" class="com.sunny.beans.reference.Person">
+        <constructor-arg name="name" value="王五"/>
+        <constructor-arg name="age" value="25"/>
+        <constructor-arg name="car" ref="car"/>
+        <!--使用级联修改小车的最大速度为100-->
+        <property name="car.maxSpeed" value="100"></property>
+    </bean>
+
+    <!--
+    ### 配置集合属性
+    * spring 提供了xml标签（<list>、<set>、<map>）为集合赋值
+    * 在集合标签可以 通过<value> 指定简单的常量值，<ref>指定bean的引用，<bean> 内部bean定义
+    -->
+    <bean id="conllectionsPerson" class="com.sunny.beans.conllections.Person">
+        <property name="name" value="钻石王老五"/>
+        <property name="age" value="50"/>
+        <property name="cars">
+            <list>
+                <ref bean="car"/>
+                <ref bean="car2"/>
+                <!--<value type="com.sunny.beans.HelloWorld">sdfsd</value>-->
+                <bean class="com.sunny.beans.di.Car">
+                    <constructor-arg value="250" name="maxSpeed" type="int" index="2"></constructor-arg>
+                    <constructor-arg value="mazida" name="brand" index="0"></constructor-arg>
+                    <constructor-arg value="shanghai" name="corp" index="1"></constructor-arg>
+                </bean>
+
+            </list>
+        </property>
+    </bean>
+
+    <!--
+    ### 配置map属性
+    * 通过<entry>标签的 key 和value-ref 绑定值
+    -->
+    <bean id="mapPerson" class="com.sunny.beans.conllections.MapPerson">
+        <property name="name" value="老王"/>
+        <property name="age" value="30"/>
+        <property name="cars">
+            <map>
+                <entry key="AA" value-ref="car"></entry>
+                <entry key="BB" value-ref="car2"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <!--
+    ### 配置 properties 属性值
+    * 通过<entry>标签的 key 和value-ref 绑定值
+    -->
+    <bean id="dataSource" class="com.sunny.beans.properties.DataSource">
+        <property name="properties">
+            <props>
+                <prop key="user">root</prop>
+                <prop key="password">123456</prop>
+                <prop key="jdbcUrl">jdbc:mysql....</prop>
+                <prop key="driverClass">com.mysql.jdbc.Driver</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--
+    ### 配置单独的bean，提供多个bean引入
+    * 使用<util:list>标签定义一个公用bean
+    -->
+    <util:list id="commonCars">
+        <ref bean="car"/>
+        <ref bean="car2"/>
+    </util:list>
+    <!--引入公用的bean-->
+    <bean id="person5" class="com.sunny.beans.conllections.Person">
+        <property name="name" value="引入公用的bean"/>
+        <property name="age" value="30"/>
+        <property name="cars" ref="commonCars"/>
+    </bean>
+
+    <!--
+    ### 通过p命名空间为bean属性赋值
+    -->
+    <bean id="person6" class="com.sunny.beans.reference.Person" p:age="20" p:name="通过p给bean属性赋值" p:car-ref="car"></bean>
+    
 </beans>
