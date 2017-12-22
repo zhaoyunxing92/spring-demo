@@ -1,6 +1,8 @@
 package com.sunny.beans.annotation.service.impl;
 
+import com.sunny.beans.annotation.repository.UserRepository;
 import com.sunny.beans.annotation.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,8 +13,12 @@ import org.springframework.stereotype.Service;
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public void add() {
+        userRepository.save();
         System.out.println("UserService add ...");
     }
 }
