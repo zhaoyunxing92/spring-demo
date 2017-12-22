@@ -17,4 +17,15 @@
         <constructor-arg name="name" value="audi"/>
     </bean>
 
+    <!--通过实例的工程方法创建bean-->
+    <!--配置工程实例-->
+    <bean id="carFactory"
+          class="com.sunny.beans.factory.InstanceCarFactory"/>
+
+    <bean id="car2"
+          factory-bean="carFactory"
+          factory-method="getCar">
+        <constructor-arg name="name" value="ford"/>
+    </bean>
+
 </beans>
