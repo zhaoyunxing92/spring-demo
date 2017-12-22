@@ -170,5 +170,5 @@
     ### 通过p命名空间为bean属性赋值
     -->
     <bean id="person6" class="com.sunny.beans.reference.Person" p:age="20" p:name="通过p给bean属性赋值" p:car-ref="car"></bean>
-    
+
 </beans>

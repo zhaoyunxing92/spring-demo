@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--
+    # bean的作用域（scope）
+    * bean的作用域默认是`单例`的
+    * singleton (单一实例)
+    * prototype   spring容器在输出bean时都会`new`
+    * request（request，session和global session类型只实用于web程序，通常是和XmlWebApplicationContext共同使用）request可以看做prototype的一种`特例`
+    * session Spring容器会为每个独立的session创建属于自己的全新的UserPreferences实例，比request scope的bean会存活更长的时间，其他的方面没区别
+    * global session  global session只有应用在基于porlet的web应用程序中才有意义，它映射到porlet的global范围的session，如果普通的servlet的web 应用中使用了这个scope，容器会把它作为普通的session的scope对待。
+    -->
+    <bean id="car" class="com.sunny.beans.autowire.Car" p:brand="宝马" p:price="500000"
+     scope="prototype"></bean>
+</beans>

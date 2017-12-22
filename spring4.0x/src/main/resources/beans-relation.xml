@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="address" class="com.sunny.beans.autowire.Address"
+          p:city="杭州" p:street="拱墅区"/>
+
+    <bean id="address2" class="com.sunny.beans.autowire.Address"
+          p:city="杭州" p:street="西湖区"/>
+
+    <!--
+    # bean的继承 (parent)
+    * 使用parent属性指定继承那个bean，同时也可修改继承过来的属性值
+    -->
+    <bean id="address3" class="com.sunny.beans.autowire.Address"
+          parent="address" p:street="萧山区"/>
+    <!--
+    # 抽象bean （模板）
+    * bean的abstract属性为true的bean，不能被IOC容器初始化，只能用来被继承配置
+    * 如果一个bean未指定class属性，则必须为抽象bean
+    -->
+    <bean id="address4" class="com.sunny.beans.autowire.Address"
+          p:city="杭州" p:street="西湖区" abstract="true"/>
+
+    <bean id="car" class="com.sunny.beans.autowire.Car"
+    p:brand="奥迪" p:price="30000"></bean>
+    <!--
+    # bean的依赖
+    * 使用 depends-on属性指定
+    * 如果需要依赖多个bean使用`逗号`隔开
+    -->
+    <bean id="person" class="com.sunny.beans.autowire.Person"
+    p:name="Tom" p:address-ref="address" depends-on="car"></bean>
+
+</beans>
