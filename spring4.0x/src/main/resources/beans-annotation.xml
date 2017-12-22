@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--指定spring ioc 容器扫描的包
+          base-package:指定扫描的包
+      resource-pattern: 指定扫描的资源
+        include-filter:包含的  该配置需要跟 use-default-filters 属性配合使用
+        exclude-filter:排除的
+   use-default-filters: 默认情况下扫描  @Component, @Repository, @Service,or @Controller 注解
+          type分为：1.annotation （注解）
+                    2.assignable (可配置的) 用来指定排除的接口，
+
+    -->
+   <!-- <context:component-scan
+            base-package="com.sunny.beans.annotation"
+            resource-pattern="repository/**"/>-->
+
+<!--    <context:component-scan
+            base-package="com.sunny.beans.annotation"
+            use-default-filters="false">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Repository"/>
+        &lt;!&ndash;<context:include-filter  type="annotation"&ndash;&gt;
+                                &lt;!&ndash;expression="org.springframework.stereotype.Controller"/>&ndash;&gt;
+    </context:component-scan>
+    -->
+
+
+
+    <context:component-scan
+            base-package="com.sunny.beans.annotation">
+
+        <context:exclude-filter type="assignable"
+                                expression="com.sunny.beans.annotation.repository.UserRepository"/>
+    </context:component-scan>
+    
+</beans>
