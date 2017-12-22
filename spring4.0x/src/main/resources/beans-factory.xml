@@ -28,4 +28,8 @@
         <constructor-arg name="name" value="ford"/>
     </bean>
 
+    <bean id="car3"
+          class="com.sunny.beans.factory.CarFactoryBean">
+       <property name="brand" value="CarFactoryBean"/>
+    </bean>
 </beans>
