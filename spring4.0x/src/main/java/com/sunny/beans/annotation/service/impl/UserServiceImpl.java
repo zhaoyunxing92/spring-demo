@@ -17,11 +17,17 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
+    //    @Autowired
+//   // @Qualifier("userRepositoryImpl")  //指定使用哪个bean
+//    public void setUserRepository(UserRepository userRepositoryImpl) {
+//        this.userRepository = userRepositoryImpl;
+//    }
     @Autowired
     @Qualifier("userRepositoryImpl")  //指定使用哪个bean
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
 
     @Override
     public void add() {

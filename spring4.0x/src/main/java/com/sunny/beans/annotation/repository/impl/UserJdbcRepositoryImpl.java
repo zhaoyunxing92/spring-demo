@@ -1,5 +1,6 @@
-package com.sunny.beans.annotation.repository;
+package com.sunny.beans.annotation.repository.impl;
 
+import com.sunny.beans.annotation.repository.UserRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * @description:
  */
  @Repository
-public class UserJdbcRepository implements UserRepository {
+public class UserJdbcRepositoryImpl implements UserRepository {
     @Override
     public void save() {
         System.out.println("UserJdbcRepository save ...");
