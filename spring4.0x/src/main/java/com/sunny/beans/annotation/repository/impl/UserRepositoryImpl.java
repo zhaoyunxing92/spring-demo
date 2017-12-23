@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
  * @date 2017-12-22 15:42
  * @description:
  */
-@Repository("userRepositoryImpl")
+
+
+@Repository
 public class UserRepositoryImpl implements UserRepository {
     @Override
     public void save() {
