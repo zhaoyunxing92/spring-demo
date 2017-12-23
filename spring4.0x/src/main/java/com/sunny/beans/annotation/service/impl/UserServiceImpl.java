@@ -17,8 +17,10 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
+    //解决两个bean冲突问题
     //    @Autowired
-//   // @Qualifier("userRepositoryImpl")  //指定使用哪个bean
+//    // 1.在set方法参数上指定用userRepositoryImpl作为bean，spring会根据bean名称匹配
+      // 2.使用Qualifier注解
 //    public void setUserRepository(UserRepository userRepositoryImpl) {
 //        this.userRepository = userRepositoryImpl;
 //    }
