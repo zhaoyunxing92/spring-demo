@@ -18,7 +18,7 @@ public class Main {
         int result = arithmeticCalculator.add(2, 5);
         System.out.println("result = " + result);
 
-        result = arithmeticCalculator.div(10, 5);
+        result = arithmeticCalculator.div(10, 2);
         System.out.println("result = " + result);
     }
 }
