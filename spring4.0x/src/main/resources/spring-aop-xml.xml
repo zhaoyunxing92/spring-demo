@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+    <!--使用xml配置aop-->
+    <bean id="arithmeticCalculator"
+          class="com.sunny.aop.xml.ArithmeticCalculatorImpl"/>
+
+    <!--配置界面的bean-->
+    <bean id="loggingAspect" class="com.sunny.aop.xml.LoggingAspect"/>
+    <bean id="validationAspect" class="com.sunny.aop.xml.ValidationAspect"/>
+
+    <!--配置aop-->
+    <aop:config>
+        <!--配置切点表达式-->
+        <aop:pointcut id="pointcut" expression="execution(* com.sunny.aop.xml.ArithmeticCalculator.*(int,int ))"/>
+
+        <!--配置切面-->
+        <aop:aspect ref="loggingAspect" order="2">
+            <aop:before method="beforeMethod" pointcut-ref="pointcut"/>
+            <!--异常通知配置-->
+            <aop:after-throwing method="afterThrowing" throwing="ex" pointcut-ref="pointcut"/>
+
+            <aop:after-returning method="afterReturning" pointcut-ref="pointcut" returning="result"/>
+
+            <aop:after method="afterMethod" pointcut-ref="pointcut"/>
+            
+            <aop:around method="aroundMethod" pointcut-ref="pointcut"/>
+        </aop:aspect>
+
+        <aop:aspect ref="validationAspect" order="1">
+            <aop:before method="validateArgs" pointcut-ref="pointcut"/>
+        </aop:aspect>
+    </aop:config>
 </beans>

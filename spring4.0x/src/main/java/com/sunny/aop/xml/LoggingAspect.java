@@ -50,7 +50,7 @@ public class LoggingAspect {
 
         try {
             //前置通知
-            System.out.println("the method [ " + methodName + " ] begigs with " + Arrays.asList(pjd.getArgs()));
+            System.out.println("the aroundMethod method [ " + methodName + " ] begigs with " + Arrays.asList(pjd.getArgs()));
             //执行目标方法
             result = pjd.proceed();
             //后置通知
