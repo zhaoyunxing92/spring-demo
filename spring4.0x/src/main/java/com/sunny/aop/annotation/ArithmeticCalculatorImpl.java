@@ -1,10 +1,10 @@
-package com.sunny.aop;
+package com.sunny.aop.annotation;
 
 import org.springframework.stereotype.Component;
 
 /**
  * @author sunny
- * @className com.sunny.aop.ArithmeticCalculatorImpl
+ * @className com.sunny.aop.annotation.ArithmeticCalculatorImpl
  * @date 2017-12-23 23:42
  * @description:
  */

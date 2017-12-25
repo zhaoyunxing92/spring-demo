@@ -1,4 +1,4 @@
-package com.sunny.aop;
+package com.sunny.aop.annotation;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 /**
  * @author sunny
- * @className com.sunny.aop.ValidationAspect
+ * @className com.sunny.aop.annotation.ValidationAspect
  * @date 2017-12-25 11:11
  * @description:
  */
@@ -19,7 +19,7 @@ import java.util.Arrays;
 @Order(1)  //指定aop优先级，值越小优先级越高
 public class ValidationAspect {
 
-    @Before("LoggingAspect.declareJointPointExpression()")
+    @Before("com.sunny.aop.annotation.LoggingAspect.declareJointPointExpression()")
     public void validateArgs(JoinPoint joinPoint) {
         System.out.println("validate:" + Arrays.asList(joinPoint.getArgs()));
     }

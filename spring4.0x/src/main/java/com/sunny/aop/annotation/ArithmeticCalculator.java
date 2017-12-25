@@ -1,8 +1,8 @@
-package com.sunny.aop;
+package com.sunny.aop.annotation;
 
 /**
  * @author sunny
- * @className com.sunny.aop.ArithmeticCalculator
+ * @className com.sunny.aop.annotation.ArithmeticCalculator
  * @date 2017-12-23 23:40
  * @description:
  */
