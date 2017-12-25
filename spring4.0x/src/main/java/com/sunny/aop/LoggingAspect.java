@@ -3,6 +3,7 @@ package com.sunny.aop;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 @Aspect
 @Component
+@Order(2)  //指定aop优先级
 public class LoggingAspect {
     //前置通知：目标方法开始前执行
     @Before(value = "execution(* com.sunny.aop.*.*(int ,int ))")
