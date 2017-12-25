@@ -14,6 +14,7 @@ public class Main {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-aop.xml");
 
         ArithmeticCalculator arithmeticCalculator = ctx.getBean(ArithmeticCalculator.class);
+      
 
         int result = arithmeticCalculator.add(2, 5);
         System.out.println("result = " + result);

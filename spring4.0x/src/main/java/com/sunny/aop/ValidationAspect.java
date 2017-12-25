@@ -19,7 +19,7 @@ import java.util.Arrays;
 @Order(1)  //指定aop优先级，值越小优先级越高
 public class ValidationAspect {
 
-    @Before(value = "execution(* com.sunny.aop.*.*(int ,int ))")
+    @Before("LoggingAspect.declareJointPointExpression()")
     public void validateArgs(JoinPoint joinPoint) {
         System.out.println("validate:" + Arrays.asList(joinPoint.getArgs()));
     }

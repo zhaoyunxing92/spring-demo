@@ -21,8 +21,17 @@ import java.util.List;
 @Component
 @Order(2)  //指定aop优先级
 public class LoggingAspect {
+    /**
+     * 定义一个方法用于声明切入点表达式
+     */
+    @Pointcut("execution(* com.sunny.aop.*.*(int ,int ))")
+    public void declareJointPointExpression(){
+
+    }
+
+
     //前置通知：目标方法开始前执行
-    @Before(value = "execution(* com.sunny.aop.*.*(int ,int ))")
+    @Before("declareJointPointExpression()")
     public void beforeMethod(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
         List<Object> args = Arrays.asList(joinPoint.getArgs());
